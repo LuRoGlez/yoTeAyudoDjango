@@ -33,7 +33,7 @@ class Especialista (models.Model):
         return self.dni+" "+self.nombre+" "+self.apellidos+" "+self.direccion+" "+self.fechaNacimiento+" "+self.foto+" "+self.biografia
 
 
-class Citas(models.Model):
+class Cita(models.Model):
     fecha=models.DateField
     idCliente=models.ForeignKey(Cliente, verbose_name="Cliente", on_delete=models.CASCADE, related_name='Cliente')
     idEspecialista=models.ForeignKey(Especialista, verbose_name="Especialista", on_delete=models.CASCADE, related_name='Especialista')
@@ -41,7 +41,7 @@ class Citas(models.Model):
     def __str__(self):
         return self.fecha+" Cliente: "+self.idCliente.nombre+" "+self.idCliente.apellidos+" Especialista: "+self.idEspecialista.nombre+" "+self.idEspecialista.apellidos
 
-class Mensajes(models.Model):
+class Mensaje(models.Model):
     idEmisor=models.ForeignKey(Usuario, verbose_name="Usuario Emisor", on_delete=models.CASCADE, related_name='Usuario_Emisor')
     idReceptor=models.ForeignKey(Usuario, verbose_name="Usuario Receptor", on_delete=models.CASCADE, related_name='Usuario_Receptor')
     fecha=models.DateField
