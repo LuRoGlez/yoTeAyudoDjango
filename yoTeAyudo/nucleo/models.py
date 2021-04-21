@@ -1,11 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
-
-class Usuario(models.Model):
-    username=models.CharField(max_length=30)
-    password=models.IntegerField
-    def __str__(self):
-        return self.username
 
 class Cliente (models.Model):
     dni=models.CharField(max_length=9)
@@ -14,7 +10,7 @@ class Cliente (models.Model):
     direccion=models.CharField(max_length=100)
     fechaNacimiento=models.DateField(null=True)
     foto=models.ImageField(upload_to='photos/', verbose_name="Foto")
-    idUsuario=models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    idUsuario=models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.dni+" "+self.nombre+" "+self.apellidos+" "+self.direccion
@@ -27,7 +23,7 @@ class Especialista (models.Model):
     fechaNacimiento=models.DateField(null=True)
     foto=models.ImageField(upload_to='photos/', verbose_name="Foto")
     biografia=models.TextField(max_length=255)
-    idUsuario=models.OneToOneField(Usuario, on_delete=models.CASCADE)
+    idUsuario=models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.dni+" "+self.nombre+" "+self.apellidos+" "+self.direccion+" "+self.biografia
@@ -39,14 +35,14 @@ class Cita(models.Model):
     idEspecialista=models.ForeignKey(Especialista, verbose_name="Especialista", on_delete=models.CASCADE, related_name='Especialista')
 
     def __str__(self):
-        return " Cliente: "+self.idCliente.nombre+" "+self.idCliente.apellidos+" Especialista: "+self.idEspecialista.nombre+" "+self.idEspecialista.apellidos
+        return " Cliente: "+self.idCliente.nombre+" "+self.idCliente.apellidos+" Especialista: "+self.idEspecialista.nombre+" "+self.idEspecialista.apellidos+" "+self.fecha.strftime('%Y-%m-%d')
 
 class Mensaje(models.Model):
-    idEmisor=models.ForeignKey(Usuario, verbose_name="Usuario Emisor", on_delete=models.CASCADE, related_name='Usuario_Emisor')
-    idReceptor=models.ForeignKey(Usuario, verbose_name="Usuario Receptor", on_delete=models.CASCADE, related_name='Usuario_Receptor')
+    idEmisor=models.ForeignKey(User, verbose_name="Usuario Emisor", on_delete=models.CASCADE, related_name='Usuario_Emisor')
+    idReceptor=models.ForeignKey(User, verbose_name="Usuario Receptor", on_delete=models.CASCADE, related_name='Usuario_Receptor')
     fecha=models.DateField
     asunto=models.CharField(max_length=50)
-    texto=models.TextField
+    texto=models.TextField(max_length=400, null=True)
 
     def __str__(self):
-        return self.idEmisor.username+" "+self.idReceptor.username+" "+self.fecha+" asunto: "+self.asunto+" mensaje: "+self.texto
+        return self.idEmisor.username+" "+self.idReceptor.username+" asunto: "+self.asunto+" mensaje: "+self.texto

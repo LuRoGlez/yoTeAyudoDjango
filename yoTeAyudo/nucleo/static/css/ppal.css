@@ -1,0 +1,127 @@
+*{
+    font-family: sans-serif;
+}
+header{
+    display: flex;
+    background-color: rgb(85, 172, 243);
+    color:white;
+    font-family: sans-serif;
+    justify-content: space-between;
+    height: 50px;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 0;
+}
+
+
+a:visited, a:link, a:active{
+    text-decoration: none;
+    color:white
+}
+
+li > a:hover{
+    background-color: rgba(0, 0, 0, 0.20);
+    height: 100%;
+    
+}
+li>a{
+    display: flex;
+    align-items: center;
+}
+.headerrigth{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-content: center;
+    
+}
+
+.horizontal{
+   
+    display: flex;
+    list-style: none;
+    height: 100%;
+    padding: 0%;
+}
+nav{
+    display: flex;
+    align-items: center;
+}
+li{
+    margin-right: 10px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+   
+}
+
+
+
+.nombre{
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+
+.img{
+    display: flex;
+    justify-content: center;
+    background: url('/static/img/header.jpg');
+    background-position: 50%;
+    height: 300px;
+    display: flex;
+}
+
+.unete{
+    font-weight: 600;
+    margin: 2%;
+    padding: 2%;
+    background-color: rgb(85, 172, 243, 0.65);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}
+
+.instalaciones{
+    color: rgba(0, 0, 0, 0.65);
+    display: flex;
+    margin:5%
+}
+
+.imginstal{
+    width: 30%;
+    margin-right: 2%;
+
+}
+.nuestras{
+    display: flex;
+    flex-direction: column;
+    width: 63%;
+    
+}
+.body{
+    margin: 5%;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.dentista{
+    display: flex;
+    
+}
+
+
+footer{
+    padding: 2%;
+    background-color: rgb(7, 7, 46);
+    text-align: center;
+    color: white;
+    height: 30px;
+}
+
+footer > p {
+    font-size: 10px;
+}

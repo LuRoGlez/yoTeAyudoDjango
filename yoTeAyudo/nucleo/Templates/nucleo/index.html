@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yo Te Ayudo</title>
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ppal.css' %}">
+</head>
+<body>
+    <header>
+        <div class="nombre">
+            <a href="{% url 'index'  %}" class="noback"><h1>Yo Te Ayudo</h1></a>
+            <p>Asesoramiento sobre salud</p>
+        </div>
+        <div class="headerrigth">
+            
+            <nav>
+                <ul class="horizontal">
+                    <li>
+                        <a href="">Nuestros especialistas</a>
+                    </li>
+                    <li>
+                        <a href="">Área de cliente</a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="img">
+        <div class="unete">
+            <p>Yo te ayudo nace con el fin de ayudar a resolver dudas médicas</p>
+            <span>durante el colapso sanitario</span>
+            <span>en la pandemia del COVID-19</span>
+        </div>
+    </section>
+    <section class="instalaciones">
+        
+        <div class="nuestras">
+            <h2>Equipo de Profesionales</h2>
+            <p>Contamos con especialistas en distintos áreas de la salud, no dudes en ponerte en contacto con ellos
+            </p>
+        </div>
+
+    </section>
+    <section style="text-align: center;">
+        <a href="" style="color:rgba(0, 0, 0, 0.65)"><h2>Contacta con nosotros</h2></a>
+    </section>
+    <footer>
+        
+        <p>Página web creada por Luis Rosell con el framework django para la asignatura PSP de segundo de Dam</p>
+        
+    </footer>
+</body>
+</html>
