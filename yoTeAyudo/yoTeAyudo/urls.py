@@ -23,6 +23,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('registration.urls')),
     path('nucleo/', include('nucleo.urls')),
     path('', views.index, name="index")
 ]+static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

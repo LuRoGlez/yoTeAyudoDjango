@@ -1,0 +1,13 @@
+<form action="" method="post"> {% csrf_token %}
+    <h3>Iniciar sesión</h3>
+    {% if form.non_field_errors %}
+    <p>Usuario o contraseña incorrectos, prueba de nuevo</p>
+    {% endif %}
+    <p>
+        <input type="text" name="username" autofocus required id="id_username"/>
+    </p>
+    <p>
+        <input type="password" name="password" required id="id_password"/>
+    </p>
+    <p><input type="submit" value="Acceder"></p>
+</form>
