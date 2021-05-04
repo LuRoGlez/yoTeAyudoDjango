@@ -23,7 +23,11 @@
                         <a href="">Nuestros especialistas</a>
                     </li>
                     <li>
-                        <a href="">Área de cliente</a>
+                        {% if not request.user.is_authenticated %}
+                        <a href="{% url 'login'  %}">Iniciar Sesión</a>
+                        {% else %}
+                        <a href="{% url 'logout'  %}">Cerrar Sesión</a>
+                        {% endif %}
                     </li>
 
                 </ul>
@@ -33,7 +37,7 @@
 
     <section class="img">
         <div class="unete">
-            <p>Yo te ayudo nace con el fin de ayudar a resolver dudas médicas</p>
+            <span>Yo te ayudo nace con el fin de ayudar a resolver dudas médicas</span>
             <span>durante el colapso sanitario</span>
             <span>en la pandemia del COVID-19</span>
         </div>
