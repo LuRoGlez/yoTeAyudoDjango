@@ -20,7 +20,7 @@
             <nav>
                 <ul class="horizontal">
                     <li>
-                        <a href="{% url 'listEspecialista'  %}">Nuestros especialistas</a>
+                        <a href="">Nuestros especialistas</a>
                     </li>
                     <li>
                         {% if not request.user.is_authenticated %}
@@ -38,29 +38,29 @@
         </div>
     </header>
 
-    <section class="img">
-        <div class="unete">
-            <span>Yo te ayudo nace con el fin de ayudar a resolver dudas médicas</span>
-            <span>durante el colapso sanitario</span>
-            <span>en la pandemia del COVID-19</span>
-        </div>
-    </section>
-    <section class="instalaciones">
-        
-        <div class="nuestras">
-            <h2>Equipo de Profesionales</h2>
-            <p>Contamos con especialistas en distintos áreas de la salud, no dudes en ponerte en contacto con ellos
-            </p>
-        </div>
+    
+<section class="body">
+<h2>Nuestros especialistas</h2>
 
-    </section>
-    <section style="text-align: center;">
-        <a href="" style="color:rgba(0, 0, 0, 0.65)"><h2>Contacta con nosotros</h2></a>
-    </section>
-    <footer>
-        
-        <p>Página web creada por Luis Rosell con el framework django para la asignatura PSP de segundo de Dam</p>
-        
-    </footer>
-</body>
+{% if especialista_list %}
+
+
+    {% for e in especialista_list %}
+   <article class="especialista">
+       <div>
+           <img src="{{e.foto.url}}" style="border-radius: 50%; width: 200px; height: 200px;">
+       </div>
+       <div style="margin-left: 3%;">
+           <h3>{{e.nombre}}</h3>
+           <p>{{e.email}}</p>
+       </div>
+    </article> 
+    {% endfor %}
+</ul>
+{% else %}
+    <p>Actualmente no hay ningun especialista en el sistema</p>
+
+    {% endif %}
+
+</section>
 </html>
