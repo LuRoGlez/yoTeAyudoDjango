@@ -46,3 +46,5 @@ class Mensaje(models.Model):
 
     def __str__(self):
         return self.idEmisor.username+" "+self.idReceptor.username+" asunto: "+self.asunto+" mensaje: "+self.texto
+
+
