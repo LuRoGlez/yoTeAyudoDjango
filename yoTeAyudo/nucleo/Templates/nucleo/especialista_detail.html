@@ -20,7 +20,7 @@
             <nav>
                 <ul class="horizontal">
                     <li>
-                        <a href="">Nuestros especialistas</a>
+                        <a href="{% url 'listEspecialista'  %}">Nuestros especialistas</a>
                     </li>
                     <li>
                         {% if not request.user.is_authenticated %}
@@ -37,34 +37,20 @@
             </nav>
         </div>
     </header>
-
-    
-<section class="body">
-<h2>Nuestros especialistas</h2>
-
-{% if especialista_list %}
-
-
-    {% for e in especialista_list %}
-   <article style="display:flex">
+    <body>
+     <article style="display:flex; justify-content: space-around">
        <div>
-           <img src="{{e.foto.url}}" style="border-radius: 50%; width: 200px; height: 200px;">
+           <img src="{{object.foto.url}}" style="border-radius: 50%; width: 200px; height: 200px;">
        </div>
        <div style="margin-left: 3%;">
-           <h3>{{e.nombre}}</h3>
-           <p>{{e.apellidos}}</p>
-           <button><a href="{%url 'detailEspecialista' e.pk %}">ver especialista
+           <h3>{{object.apellidos}}, {{object.nombre}}</h3>
+
+           
+       </div>
+       <div>
+            <h2>biografía</h2>
+            <p>{{object.biografia}}</p>
+            <p>{{object.direccion}}</p>
        </div>
     </article> 
-    <article>
-        <a href="{% url 'createCita'  %}" style="color:white"><button style="background-color:green">Solicitar Cita</a>
-    </article>
-    {% endfor %}
-</ul>
-{% else %}
-    <p>Actualmente no hay ningun especialista en el sistema</p>
-
-    {% endif %}
-
-</section>
-</html>
+    </body>
