@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Cliente, Especialista, Cita, Mensaje
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
 from django.core.mail import send_mail
 # Create your views here.
 def index(request):
@@ -8,3 +9,9 @@ def index(request):
 
 class EspecialistaListView(ListView):
     model=Especialista
+
+class CitaCreateView(CreateView):
+    model=Cita
+    fields=['fecha', 'idCliente', 'idEspecialista']
+    success_url="/"
+    

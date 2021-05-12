@@ -20,7 +20,7 @@
             <nav>
                 <ul class="horizontal">
                     <li>
-                        <a href="">Nuestros especialistas</a>
+                        <a href="{% url 'listEspecialista'  %}">Nuestros especialistas</a>
                     </li>
                     <li>
                         {% if not request.user.is_authenticated %}
@@ -40,30 +40,13 @@
 
     
 <section class="body">
-<h2>Nuestros especialistas</h2>
+<h2>Solicitar cita</h2>
 
-{% if especialista_list %}
-
-
-    {% for e in especialista_list %}
-   <article class="especialista">
-       <div>
-           <img src="{{e.foto.url}}" style="border-radius: 50%; width: 200px; height: 200px;">
-       </div>
-       <div style="margin-left: 3%;">
-           <h3>{{e.nombre}}</h3>
-           <p>{{e.email}}</p>
-       </div>
-    </article> 
-    <article>
-        <a href="{% url 'createCita'  %}" style="background-color:blue; color:white">Solicitar Cita</a>
-    </article>
-    {% endfor %}
-</ul>
-{% else %}
-    <p>Actualmente no hay ningun especialista en el sistema</p>
-
-    {% endif %}
-
-</section>
-</html>
+<form action="" method="POST">
+    {% csrf_token %} 
+  <table>
+    {{form.as_table}}
+  </table>
+    </br>
+    <input type="submit" value="Solicitar Cita"/>
+    </form>
