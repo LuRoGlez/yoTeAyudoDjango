@@ -110,6 +110,7 @@ li{
 
 .especialista{
     display: flex;
+    flex-direction: row;
     
 }
 
