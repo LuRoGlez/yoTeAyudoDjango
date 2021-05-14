@@ -18,3 +18,6 @@ class CitaCreateView(CreateView):
 
 class EspecialistaDetailView(DetailView):
     model=Especialista
+
+class CitaListView(ListView):
+    model=Cita

@@ -19,6 +19,11 @@
             
             <nav>
                 <ul class="horizontal">
+                    {% if request.user.is_authenticated %}
+                    <li>
+                     <a href="{% url 'listCita'  %}">Historial de citas</a>
+                    </li>                            
+                    {% endif %}
                     <li>
                         <a href="{% url 'listEspecialista'  %}">Nuestros especialistas</a>
                     </li>

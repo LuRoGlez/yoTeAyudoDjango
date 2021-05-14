@@ -8,4 +8,5 @@ urlpatterns = [
     path('listEspecialista',views.EspecialistaListView.as_view(), name="listEspecialista"),
     path('createCita',views.CitaCreateView.as_view(), name="createCita"),
     path('especialistas/<int:pk>',views.EspecialistaDetailView.as_view(), name="detailEspecialista"),
+    path('listCita',views.CitaListView.as_view(), name="listCita"),
 ]
