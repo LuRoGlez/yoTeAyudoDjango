@@ -46,14 +46,14 @@
 
 
     {% for c in cita_list %}
-       
+        {% if c.idCliente.idUsuario == request.user %} 
             <article style="display:flex">
                 <div style="margin-left: 3%;">
-                    <h3>Doctor: {{c.idEspecialista}}</h3>
-                    <p>Fecha: {{c.fecha}}</p>
+                    <h3>{{c.idEspecialista}}</h3>
+                    <p>{{c.fecha}}</p>
                 </div>
             </article>       
-            
+            {% endif %}
     {% endfor %}
 {% endif %}
  <article>
