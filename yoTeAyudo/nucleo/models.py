@@ -13,7 +13,7 @@ class Cliente (models.Model):
     idUsuario=models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.dni+" "+self.nombre+" "+self.apellidos
+        return self.nombre+" "+self.apellidos
 
 class Especialista (models.Model):
     dni=models.CharField(max_length=9)
@@ -26,7 +26,7 @@ class Especialista (models.Model):
     idUsuario=models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.dni+" "+self.nombre+" "+self.apellidos
+        return self.nombre+" "+self.apellidos
 
 
 class Cita(models.Model):
