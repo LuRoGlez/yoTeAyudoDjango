@@ -1,21 +1,32 @@
 from django.db import models
-from django.contrib.auth import get_user_model
-User = get_user_model()
+from django.contrib.auth.models import AbstractUser
+
+
+
+class User(AbstractUser):
+    
+    is_cliente = models.BooleanField(default=False)
+    is_especialista = models.BooleanField(default=False)
 
 
 class Cliente (models.Model):
+
     dni=models.CharField(max_length=9)
     nombre=models.CharField(max_length=30)
     apellidos=models.CharField(max_length=50)
     direccion=models.CharField(max_length=100)
     fechaNacimiento=models.DateField(null=True)
     foto=models.ImageField(upload_to='photos/', verbose_name="Foto")
-    idUsuario=models.OneToOneField(User, on_delete=models.CASCADE)
+    idUsuario=models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.nombre+" "+self.apellidos
 
 class Especialista (models.Model):
+
+    
     dni=models.CharField(max_length=9)
     nombre=models.CharField(max_length=30)
     apellidos=models.CharField(max_length=30)
@@ -23,7 +34,10 @@ class Especialista (models.Model):
     fechaNacimiento=models.DateField(null=True)
     foto=models.ImageField(upload_to='photos/', verbose_name="Foto")
     biografia=models.TextField(max_length=255)
-    idUsuario=models.OneToOneField(User, on_delete=models.CASCADE)
+    idUsuario=models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+
+    REQUIRED_FIELDS = []
+
 
     def __str__(self):
         return self.nombre+" "+self.apellidos
