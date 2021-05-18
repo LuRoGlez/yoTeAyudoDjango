@@ -37,30 +37,8 @@
             </nav>
         </div>
     </header>
-
-    
-<section class="body">
-<h2>Mi historial de citas</h2>
-
-{% if cita_list %}
-
-
-    {% for c in cita_list %}
-        {% if c.idCliente.idUsuario == request.user %} 
-            <article style="display:flex">
-                <div style="margin-left: 3%;">
-                    <h3>Doctor: {{c.idEspecialista}}</h3>
-                    <p>Fecha: {{c.fecha}}</p>
-                    <button><a href="{%url 'updateCita' c.pk %}" style="color:orange">Actualizar Cita</a></button>
-                    <button style="background-color:red"><a href="{%url 'deleteCita' c.pk %}" style="color:white">Eliminar Cita</a></button>
-                </div>
-            </article>       
-            {% endif %}
-    {% endfor %}
-{% endif %}
-<br/>
- <article>
-        <a href="{% url 'createCita'  %}" style="color:white"><button style="background-color:green">Solicitar Cita</a>
-    </article>
-</section>
-</html>
+    <body>
+        <form method="post">{% csrf_token %}
+        <p>¿Quieres eliminar la cita "{{ object }}"?</p>
+        <input type="submit" value="Eliminar">
+    </body>
