@@ -47,29 +47,31 @@
             </nav>
         </div>
     </header>
+
     
 <section class="body">
-<h2>Mi historial de citas</h2>
+<h2>Clientes</h2>
 
-{% if cita_list %}
+{% if cliente_list %}
 
 
-    {% for c in cita_list %}
-        {% if c.idCliente.idUsuario == request.user %} 
-            <article style="display:flex">
-                <div style="margin-left: 3%;">
-                    <h3>Doctor: {{c.idEspecialista}}</h3>
-                    <p>Fecha: {{c.fecha}}</p>
-                    <button><a href="{%url 'updateCita' c.pk %}" style="color:orange">Actualizar Cita</a></button>
-                    <button style="background-color:red"><a href="{%url 'deleteCita' c.pk %}" style="color:white">Eliminar Cita</a></button>
-                </div>
-            </article>       
-            {% endif %}
+    {% for c in cliente_list %}
+   <article style="display:flex">
+       <div>
+           <img src="{{c.foto.url}}" style="border-radius: 50%; width: 200px; height: 200px;">
+       </div>
+       <div style="margin-left: 3%;">
+           <h3>{{c.nombre}}</h3>
+           <p>{{c.apellidos}}</p>
+           <button><a href="" style="color:orange">ver citas</a></button>
+       </div>
+    </article> 
+   
     {% endfor %}
-{% endif %}
-<br/>
- <article>
-        <a href="{% url 'createCita'  %}" style="color:white"><button style="background-color:green">Solicitar Cita</a>
-    </article>
+{% else %}
+    <p>Actualmente no hay ningun cliente en el sistema</p>
+
+    {% endif %}
+
 </section>
 </html>

@@ -47,6 +47,8 @@ class Cita(models.Model):
     fecha=models.DateField(null=True)
     idCliente=models.ForeignKey(Cliente, verbose_name="Cliente", on_delete=models.CASCADE, related_name='Cliente')
     idEspecialista=models.ForeignKey(Especialista, verbose_name="Especialista", on_delete=models.CASCADE, related_name='Especialista')
+    informe=models.TextField(max_length=255, null=True)
+    realizada=models.BooleanField(default=False)
 
     def __str__(self):
         return " Cliente: "+self.idCliente.nombre+" "+self.idCliente.apellidos+" Especialista: "+self.idEspecialista.nombre+" "+self.idEspecialista.apellidos+" "+self.fecha.strftime('%Y-%m-%d')

@@ -30,3 +30,6 @@ class CitaUpdateView(UpdateView):
 class CitaDeleteView(DeleteView):
     model=Cita
     success_url="/nucleo/listCita"
+
+class ClienteListView(ListView):
+    model=Cliente
