@@ -60,6 +60,7 @@
                 <div style="margin-left: 3%;">
                     <h3>Doctor: {{c.idEspecialista}}</h3>
                     <p>Fecha: {{c.fecha}}</p>
+                    <p><h4>Informe: </h4>{{c.informe}}</p>
                     <button><a href="{%url 'updateCita' c.pk %}" style="color:orange">Actualizar Cita</a></button>
                     <button style="background-color:red"><a href="{%url 'deleteCita' c.pk %}" style="color:white">Eliminar Cita</a></button>
                 </div>
