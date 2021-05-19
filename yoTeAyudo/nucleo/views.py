@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Cliente, Especialista, Cita, Mensaje
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -33,3 +33,8 @@ class CitaDeleteView(DeleteView):
 
 class ClienteListView(ListView):
     model=Cliente
+
+def citasCliente(request, pk):
+    cliente=get_object_or_404(Cliente, id=pk)
+    citas=Cita.objects.filter(idCliente=cliente)
+    return render(request, "nucleo/citas_cliente.html", {'cliente':cliente, 'citas':citas})

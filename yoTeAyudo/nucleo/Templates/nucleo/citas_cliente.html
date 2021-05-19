@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/ppal.css' %}">
 </head>
-<body>
+
     <header>
         <div class="nombre">
             <a href="{% url 'index'  %}" class="noback"><h1>Yo Te Ayudo</h1></a>
@@ -47,31 +47,14 @@
             </nav>
         </div>
     </header>
-
-    
-<section class="body">
-<h2>Clientes</h2>
-
-{% if cliente_list %}
-
-
-    {% for c in cliente_list %}
-   <article style="display:flex">
-       <div>
-           <img src="{{c.foto.url}}" style="border-radius: 50%; width: 200px; height: 200px;">
-       </div>
-       <div style="margin-left: 3%;">
-           <h3>{{c.nombre}}</h3>
-           <p>{{c.apellidos}}</p>
-           <button><a href="{% url 'citasCliente' c.pk %}" style="color:orange">ver citas</a></button>
-       </div>
-    </article> 
-   
-    {% endfor %}
-{% else %}
-    <p>Actualmente no hay ningun cliente en el sistema</p>
-
-    {% endif %}
-
-</section>
-</html>
+{% if citas %}
+<h2>Citas del cliente {{ cliente }}</h2>
+<ul>
+{% for c in citas %}
+    <li>
+        <p>Especialista: {{ c.idEspecialista.nombre }} Fecha: {{ c.fecha }} </p><br/>
+        <p>Informe: {{ c.informe }}</p>
+    </li>
+{% endfor %} 
+</ul>
+{% endif %}
