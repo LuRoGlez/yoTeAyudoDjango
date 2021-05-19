@@ -1,0 +1,14 @@
+SuerUser:
+usuario      pass: usuario1234
+
+
+Clientes:
+LuRosell     pass: lr123456
+JuLopez      pass: jl123456
+
+Especialistas:
+GeGarcia     pass: gg123456
+MiJimenez    pass: mj123456
+
+no se porqué razon los usuarios no los mantengo de un ordenador a otro, estos son los últimos que he creado, en teoría deberian funcionarte
+Si no te funcionan puedes registrarlos y otorgarles el rol desde el panel de administración
