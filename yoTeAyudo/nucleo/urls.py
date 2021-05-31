@@ -2,6 +2,7 @@
 from django.contrib import admin
 from django.urls import path
 from nucleo import views
+from .views import *
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -15,5 +16,6 @@ urlpatterns = [
     path('citasCliente/<int:pk>/', views.citasCliente, name="citasCliente"),
     path('listMensaje',views.MensajeListView.as_view(), name="listMensaje"),
     path('mensajes/<int:pk>',views.MensajeDetailView.as_view(), name="detailMensaje"),
+    path('crearMensaje', views.crear_mensaje, name="crear_mensaje"),
 
 ]

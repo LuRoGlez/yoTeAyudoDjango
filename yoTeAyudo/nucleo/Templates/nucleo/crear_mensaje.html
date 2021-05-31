@@ -55,78 +55,15 @@
             </nav>
         </div>
     </header>
-    <button style="background-color: orange; margin:10px"><a href="{%url 'crear_mensaje' %}" style="color:white">Crear nuevo mensaje</a></button>
-    <section style="display: flex; justify-content: space-around;">
-    {% if mensaje_list %}
-    <section style="width: 40%; margin: 5%">
-        <h2>No Leidos</h2>
-        <table style="width: 100%;">
-            <tr>
-                <th>Emisor</th>
-                <th>Asunto</th>
-                <th>Fecha</th>
-           </tr>
-    {% for m in mensaje_list %}
-    {% if m.idReceptor == request.user %} 
-    {% if not m.leido %}
-    <tr>
-        <td>{{m.idEmisor}}</td>
-        <td>{{m.asunto}}</td>
-        <td>{{m.fecha}}</td>
-        <td><button style="background-color: green;"><a href="{%url 'detailMensaje' m.pk %}" style="color:white">Ver</a></button></td>
-   </tr>
-   {% endif %}  
-    {% endif %}    
-    {% endfor %}  
-        </table>
 
-<h2>Leidos</h2>
-    <table style="width: 100%;">
-        <tr>
-            <th>Emisor</th>
-            <th>Asunto</th>
-            <th>Fecha</th>
-       </tr>
+    
+<section class="body">
+<h2>Envia un mensaje</h2>
 
-    {% for m in mensaje_list %}
-    {% if m.idReceptor == request.user %} 
-    {% if  m.leido %}
-<tr>
-    <td>{{m.idEmisor}}</td>
-    <td>{{m.asunto}}</td>
-    <td>{{m.fecha}}</td>
-    <td><button style="background-color: green;"><a href="{%url 'detailMensaje' m.pk %}" style="color:white">Ver</a></button></td>
-</tr>
-{% endif %}
-    {% endif %}
-{% endfor %}
-
-
-</table>
-</section>
-<section style="width: 40%; margin: 5%">
-    <h2>Enviados</h2>
-    <table style="width: 100%;">
-        <tr>
-            <th>Enviado a</th>
-            <th>Asunto</th>
-            <th>Fecha</th>
-       </tr>
-{% for m in mensaje_list %}
-{% if m.idEmisor == request.user %} 
-<tr>
-        <td>{{m.idReceptor}}</td>
-        <td>{{m.asunto}}</td>
-        <td>{{m.fecha}}</td>
-        <td><button style="background-color: green;"><a href="{%url 'detailMensaje' m.pk %}" style="color:white">Ver</a></button></td>
-</tr>
-   
-    {% endif %}
-{% endfor %}
-
-
-
-</table>
-</section>
-{% endif %}
-</section>
+<form action="" method="POST">
+    {% csrf_token %} 
+  <table>
+    {{form.as_table}}
+  </table>
+    <input type="submit" value="Enviar Mensaje"/>
+    </form>
