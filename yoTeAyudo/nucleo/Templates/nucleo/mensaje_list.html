@@ -55,30 +55,74 @@
             </nav>
         </div>
     </header>
+    <section style="display: flex; justify-content: space-around;">
+    {% if mensaje_list %}
+    <section style="width: 40%; margin: 10%">
+        <h2>No Leidos</h2>
+        <table style="width: 100%;">
+            <tr>
+                <th>Emisor</th>
+                <th>Asunto</th>
+                <th>Fecha</th>
+           </tr>
+    {% for m in mensaje_list %}
+    {% if m.idReceptor == request.user %} 
+    {% if not m.leido %}
+    <tr>
+        <td>{{m.idEmisor}}</td>
+        <td>{{m.asunto}}</td>
+        <td>{{m.fecha}}</td>
+   </tr>
+   {% endif %}  
+    {% endif %}    
+    {% endfor %}  
+        </table>
 
-    <section class="img">
-        <div class="unete">
-            <span>Yo te ayudo nace con el fin de ayudar a resolver dudas médicas</span>
-            <span>durante el colapso sanitario</span>
-            <span>en la pandemia del COVID-19</span>
-        </div>
-    </section>
-    <section class="instalaciones">
-        
-        <div class="nuestras">
-            <h2>Equipo de Profesionales</h2>
-            <p>Contamos con especialistas en distintos áreas de la salud, no dudes en ponerte en contacto con ellos
-            </p>
-        </div>
+<h2>Leidos</h2>
+    <table style="width: 100%;">
+        <tr>
+            <th>Emisor</th>
+            <th>Asunto</th>
+            <th>Fecha</th>
+       </tr>
 
-    </section>
-    <section style="text-align: center;">
-        <a href="" style="color:rgba(0, 0, 0, 0.65)"><h2>Contacta con nosotros</h2></a>
-    </section>
-    <footer>
-        
-        <p>Página web creada por Luis Rosell con el framework django para la asignatura PSP de segundo de Dam</p>
-        
-    </footer>
-</body>
-</html>
+    {% for m in mensaje_list %}
+    {% if m.idReceptor == request.user %} 
+    {% if  m.leido %}
+<tr>
+    <td>{{m.idEmisor}}</td>
+    <td>{{m.asunto}}</td>
+    <td>{{m.fecha}}</td>
+</tr>
+{% endif %}
+    {% endif %}
+{% endfor %}
+
+
+</table>
+</section>
+<section style="width: 40%; margin: 10%">
+    <h2>Enviados</h2>
+    <table style="width: 100%;">
+        <tr>
+            <th>Enviado a</th>
+            <th>Asunto</th>
+            <th>Fecha</th>
+       </tr>
+{% for m in mensaje_list %}
+{% if m.idEmisor == request.user %} 
+<tr>
+        <td>{{m.idReceptor}}</td>
+        <td>{{m.asunto}}</td>
+        <td>{{m.fecha}}</td>
+</tr>
+   
+    {% endif %}
+{% endfor %}
+
+
+
+</table>
+</section>
+{% endif %}
+</section>

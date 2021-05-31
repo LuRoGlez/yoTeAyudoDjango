@@ -126,3 +126,17 @@ footer{
 footer > p {
     font-size: 10px;
 }
+
+.mensajes{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.correo{
+    width: 40%;
+    margin: 10%
+}
+
+table{
+    width: 100%;
+}

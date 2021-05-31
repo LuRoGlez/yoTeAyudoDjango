@@ -38,3 +38,6 @@ def citasCliente(request, pk):
     cliente=get_object_or_404(Cliente, id=pk)
     citas=Cita.objects.filter(idCliente=cliente)
     return render(request, "nucleo/citas_cliente.html", {'cliente':cliente, 'citas':citas})
+
+class MensajeListView(ListView):
+    model=Mensaje

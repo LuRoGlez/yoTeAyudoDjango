@@ -64,6 +64,7 @@ class Mensaje(models.Model):
     fecha=models.DateField(default=timezone.now)
     asunto=models.CharField(max_length=50)
     texto=models.TextField(max_length=400, null=True)
+    leido=models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-fecha']
