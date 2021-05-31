@@ -55,77 +55,22 @@
             </nav>
         </div>
     </header>
-    <section style="display: flex; justify-content: space-around;">
-    {% if mensaje_list %}
-    <section style="width: 40%; margin: 5%">
-        <h2>No Leidos</h2>
-        <table style="width: 100%;">
-            <tr>
-                <th>Emisor</th>
-                <th>Asunto</th>
-                <th>Fecha</th>
-           </tr>
-    {% for m in mensaje_list %}
-    {% if m.idReceptor == request.user %} 
-    {% if not m.leido %}
-    <tr>
-        <td>{{m.idEmisor}}</td>
-        <td>{{m.asunto}}</td>
-        <td>{{m.fecha}}</td>
-        <td><button style="background-color: green;"><a href="{%url 'detailMensaje' m.pk %}" style="color:white">Ver</a></button></td>
-   </tr>
-   {% endif %}  
-    {% endif %}    
-    {% endfor %}  
-        </table>
+    <body>
 
-<h2>Leidos</h2>
-    <table style="width: 100%;">
-        <tr>
-            <th>Emisor</th>
-            <th>Asunto</th>
-            <th>Fecha</th>
-       </tr>
+     <article>
+        {% if object.idEmisor == request.user or object.idReceptor == request.user %}
+       <div style="margin-left: 3%;">
+           <h3>De: {{object.idEmisor}}</h3>
+           <h3>Para: {{object.idReceptor}}</h3>
 
-    {% for m in mensaje_list %}
-    {% if m.idReceptor == request.user %} 
-    {% if  m.leido %}
-<tr>
-    <td>{{m.idEmisor}}</td>
-    <td>{{m.asunto}}</td>
-    <td>{{m.fecha}}</td>
-    <td><button style="background-color: green;"><a href="{%url 'detailMensaje' m.pk %}" style="color:white">Ver</a></button></td>
-</tr>
-{% endif %}
-    {% endif %}
-{% endfor %}
-
-
-</table>
-</section>
-<section style="width: 40%; margin: 5%">
-    <h2>Enviados</h2>
-    <table style="width: 100%;">
-        <tr>
-            <th>Enviado a</th>
-            <th>Asunto</th>
-            <th>Fecha</th>
-       </tr>
-{% for m in mensaje_list %}
-{% if m.idEmisor == request.user %} 
-<tr>
-        <td>{{m.idReceptor}}</td>
-        <td>{{m.asunto}}</td>
-        <td>{{m.fecha}}</td>
-        <td><button style="background-color: green;"><a href="{%url 'detailMensaje' m.pk %}" style="color:white">Ver</a></button></td>
-</tr>
-   
-    {% endif %}
-{% endfor %}
-
-
-
-</table>
-</section>
-{% endif %}
-</section>
+           
+       </div>
+       <div style="margin-left: 3%;">
+            <h3>Asunto: {{object.asunto}}</h3>
+            <p>{{object.texto}}</p>
+       </div>
+       {% else %} 
+       <p>No puedes leer este mensaje por no ser el emisor ni el receptor</p>
+       {% endif %} 
+    </article> 
+    </body>

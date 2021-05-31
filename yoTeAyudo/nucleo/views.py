@@ -41,3 +41,6 @@ def citasCliente(request, pk):
 
 class MensajeListView(ListView):
     model=Mensaje
+
+class MensajeDetailView(DetailView):
+    model=Mensaje
