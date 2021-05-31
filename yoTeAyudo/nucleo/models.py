@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 
 
@@ -50,15 +51,22 @@ class Cita(models.Model):
     informe=models.TextField(max_length=255, null=True)
     realizada=models.BooleanField(default=False)
 
+    class Meta:
+       
+        ordering = ['-fecha']
+
     def __str__(self):
         return " Cliente: "+self.idCliente.nombre+" "+self.idCliente.apellidos+" Especialista: "+self.idEspecialista.nombre+" "+self.idEspecialista.apellidos+" "+self.fecha.strftime('%Y-%m-%d')
 
 class Mensaje(models.Model):
     idEmisor=models.ForeignKey(User, verbose_name="Usuario Emisor", on_delete=models.CASCADE, related_name='Usuario_Emisor')
     idReceptor=models.ForeignKey(User, verbose_name="Usuario Receptor", on_delete=models.CASCADE, related_name='Usuario_Receptor')
-    fecha=models.DateField
+    fecha=models.DateField(default=timezone.now)
     asunto=models.CharField(max_length=50)
     texto=models.TextField(max_length=400, null=True)
+
+    class Meta:
+        ordering = ['-fecha']
 
     def __str__(self):
         return self.idEmisor.username+" "+self.idReceptor.username+" asunto: "+self.asunto+" mensaje: "+self.texto
