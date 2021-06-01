@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.core.mail import send_mail
-from nucleo.forms import FormularioMensaje
+from nucleo.forms import FormularioMensaje, FormularioInforme
 from datetime import datetime
 
 now=datetime.now()
@@ -66,3 +66,18 @@ def crear_mensaje(request):
 def citasHoy(request):
     citas=Cita.objects.filter(fecha=now.date())
     return render(request, "nucleo/citas_hoy.html", {'citas':citas})
+
+def rellenar_informe(request, pk):
+    Cita.id=pk
+    if request.method == "POST":
+        form = FormularioInforme(request.POST)
+        if form.is_valid():
+            informe = form.save(commit=False)
+            informe.realizada = True 
+            informe.save()
+            return redirect("citasHoy")
+        
+
+    form = FormularioInforme()
+    return render(request, "nucleo/rellenar_informe.html", {"form":form})
+

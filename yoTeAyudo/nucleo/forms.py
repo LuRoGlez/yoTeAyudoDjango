@@ -5,3 +5,8 @@ class FormularioMensaje (forms.ModelForm):
     class Meta:
         model = Mensaje
         fields = ('idReceptor', 'asunto', 'texto')
+
+class FormularioInforme (forms.ModelForm):
+    class Meta:
+        model = Cita
+        fields = ('informe',)

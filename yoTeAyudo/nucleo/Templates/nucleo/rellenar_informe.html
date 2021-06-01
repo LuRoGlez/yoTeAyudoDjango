@@ -21,7 +21,7 @@
                 <ul class="horizontal">
                     {% if request.user.is_authenticated and request.user.is_especialista %}
                     <li>
-                     <a href="{% url 'citasHoy'  %}">Citas Hoy</a>
+                     <a href="{% url 'citasHoy' %}">Citas Hoy</a>
                     </li>                     
                     {% endif %}
                     {% if request.user.is_authenticated %}
@@ -61,26 +61,14 @@
         </div>
     </header>
 
-    <section class="body">
-<h2>Citas de hoy</h2>
+    
+<section class="body">
+<h2>Rellenar Informe</h2>
 
-{% if citas %}
-
-
-    {% for c in citas %}
-        {% if c.idEspecialista.idUsuario == request.user %} 
-            <article style="display:flex">
-                <div style="margin-left: 3%;">
-                    <h3>Paciente: {{c.idCliente}}</h3>
-                    <p>Fecha: {{c.fecha}}</p>
-                    <p><h4>Informe: </h4>{{c.informe}}</p>
-                    <button><a href="{%url 'rellenar_informe' c.pk %}" style="color:orange">Rellenar informe</a></button>
-                </div>
-            </article>
-            {% else %}
-            <h3>No tiene citas programadas para hoy</h3>       
-            {% endif %}
-    {% endfor %}
-{% endif %}
-
-</section>
+<form action="" method="POST">
+    {% csrf_token %} 
+  <table>
+    {{form.as_table}}
+  </table>
+    <input type="submit" value="Enviar Informe"/>
+    </form>
