@@ -19,5 +19,6 @@ urlpatterns = [
     path('crearMensaje', views.crear_mensaje, name="crear_mensaje"),
     path('citasHoy', views.citasHoy, name="citasHoy"),
     path('rellenarInforme/<int:pk>', views.rellenar_informe, name="rellenar_informe"),
+    path('guardarInforme/<int:pk>', views.guardar_informe, name="guardar_informe"),
 
 ]

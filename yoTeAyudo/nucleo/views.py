@@ -68,16 +68,19 @@ def citasHoy(request):
     return render(request, "nucleo/citas_hoy.html", {'citas':citas})
 
 def rellenar_informe(request, pk):
-    Cita.id=pk
-    if request.method == "POST":
-        form = FormularioInforme(request.POST)
-        if form.is_valid():
-            informe = form.save(commit=False)
-            informe.realizada = True 
-            informe.save()
-            return redirect("citasHoy")
-        
+    cita = Cita.objects.filter(id=pk).first()
+    form = FormularioInforme(instance=cita)
 
-    form = FormularioInforme()
-    return render(request, "nucleo/rellenar_informe.html", {"form":form})
+    return render(request, "nucleo/rellenar_informe.html", {"form":form, 'cita':cita})
+
+def guardar_informe(request, pk):
+    cita = Cita.objects.get(pk=pk)
+    form = FormularioInforme(request.POST, instance=cita)
+    if form.is_valid():
+        cita.realizada = True
+        form.save()
+        return redirect("citasHoy")
+    
+    citas = Cita.objects.all()
+    return render(request, "nucleo/citas_hoy.html")
 
