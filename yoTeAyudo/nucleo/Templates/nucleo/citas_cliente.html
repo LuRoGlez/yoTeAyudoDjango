@@ -1,65 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yo Te Ayudo</title>
-    {% load static %}
+{% extends "nucleo/base.html" %} 
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/ppal.css' %}">
-</head>
-<body>
-    <header>
-        <div class="nombre">
-            <a href="{% url 'index'  %}" class="noback"><h1>Yo Te Ayudo</h1></a>
-            <p>Asesoramiento sobre salud</p>
-        </div>
-        <div class="headerrigth">
-            
-            <nav>
-                <ul class="horizontal">
-                {% if request.user.is_authenticated and request.user.is_especialista %}
-                    <li>
-                     <a href="{% url 'citasHoy'  %}">Citas Hoy</a>
-                    </li>                     
-                    {% endif %}
-                    {% if request.user.is_authenticated %}
-                    <li>
-                        <a href="{% url 'listMensaje'  %}">Mensajes</a>
-                    </li>
-                    {% endif %}
-                    {% if request.user.is_authenticated and request.user.is_cliente %}
-                    <li>
-                     <a href="{% url 'listCita'  %}">Historial de citas</a>
-                    </li>
-                    {% endif %}
-                        {% if request.user.is_authenticated and request.user.is_especialista %}
-                    <li>
-                     <a href="{% url 'listCliente'  %}">Clientes</a>
-                    </li>                     
-                    {% endif %}
-                    <li>
-                        <a href="{% url 'listEspecialista'  %}">Nuestros especialistas</a>
-                    </li>
-                    
-                  
-                    <li>
-                        {% if not request.user.is_authenticated %}
-                        <a href="{% url 'login'  %}">Iniciar Sesión</a>
-                        {% else %}
-                        <a href="{% url 'logout'  %}"><ul>
-                            <li>Cerrar Sesión</li> 
-                            <li style="font-size: 12px">Usuario: {{request.user.username}}</li>
-                            </ul></a>
-                            {% endif %}
-                    </li>
-                    
-                   
-                </ul>
-            </nav>
-        </div>
-    </header>
+    
+{% block content %}
 {% if citas %}
 <h2>Citas del cliente {{ cliente }}</h2>
 <ul>
@@ -71,3 +13,5 @@
 {% endfor %} 
 </ul>
 {% endif %}
+
+{% endblock %}
