@@ -1,10 +1,11 @@
+from django.http import request
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Cliente, Especialista, Cita, Mensaje
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.core.mail import send_mail
-from nucleo.forms import FormularioAplazarCita, FormularioMensaje, FormularioInforme, FormularioAplazarCita
+from nucleo.forms import FormularioAplazarCita, FormularioMensaje, FormularioInforme, FormularioAplazarCita, FormularioMensajeCl
 from datetime import datetime
 
 now=datetime.now()
@@ -48,10 +49,13 @@ class MensajeListView(ListView):
 
 class MensajeDetailView(DetailView):
     model=Mensaje
-    mensaje = Mensaje.objects
-    mensaje.leido = True
     
-
+   
+    #def get_object(self, queryset=None):
+     #   obj = super(MensajeDetailView, self).get_object(queryset=queryset)
+       # obj.leido = True
+      #  obj.save()
+    
 
 def crear_mensaje(request):
     if request.method == "POST":
@@ -60,7 +64,7 @@ def crear_mensaje(request):
             post = form.save(commit=False)
             post.idEmisor = request.user 
             post.save()
-            return redirect("listMensaje")
+            return redirect("listMensaje")     
         
 
     form = FormularioMensaje()
@@ -102,3 +106,16 @@ def guardar_fecha(request, pk):
     
     citas = Cita.objects.all()
     return render(request, "nucleo/citas_hoy.html")
+
+def crear_mensajeCl(request):
+    if request.method == "POST":
+        form = FormularioMensajeCl(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.idEmisor = request.user 
+            post.save()
+            return redirect("listMensaje")     
+        
+
+    form = FormularioMensajeCl()
+    return render(request, "nucleo/crear_mensajecl.html", {"form":form})

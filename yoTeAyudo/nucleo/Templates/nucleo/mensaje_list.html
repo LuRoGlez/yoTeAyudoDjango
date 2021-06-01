@@ -60,7 +60,11 @@
             </nav>
         </div>
     </header>
+    {% if request.user.is_authenticated and request.user.is_especialista %}
     <button style="background-color: orange; margin:10px"><a href="{%url 'crear_mensaje' %}" style="color:white">Crear nuevo mensaje</a></button>
+    {% else %}
+    <button style="background-color: orange; margin:10px"><a href="{%url 'crear_mensajecl' %}" style="color:white">Crear nuevo mensaje</a></button>
+    {% endif %}
     <section style="display: flex; justify-content: space-around;">
     {% if mensaje_list %}
     <section style="width: 40%; margin: 5%">
