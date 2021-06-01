@@ -10,3 +10,8 @@ class FormularioInforme (forms.ModelForm):
     class Meta:
         model = Cita
         fields = ('informe',)
+
+class FormularioAplazarCita (forms.ModelForm):
+    class Meta:
+        model = Cita
+        fields = ('fecha',)

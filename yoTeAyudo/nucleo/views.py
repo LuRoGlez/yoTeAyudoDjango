@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.core.mail import send_mail
-from nucleo.forms import FormularioMensaje, FormularioInforme
+from nucleo.forms import FormularioAplazarCita, FormularioMensaje, FormularioInforme, FormularioAplazarCita
 from datetime import datetime
 
 now=datetime.now()
@@ -84,3 +84,18 @@ def guardar_informe(request, pk):
     citas = Cita.objects.all()
     return render(request, "nucleo/citas_hoy.html")
 
+def aplazar_cita(request, pk):
+    cita = Cita.objects.filter(id=pk).first()
+    form = FormularioAplazarCita(instance=cita)
+
+    return render(request, "nucleo/aplazar_cita.html", {"form":form, 'cita':cita})
+
+def guardar_fecha(request, pk):
+    cita = Cita.objects.get(pk=pk)
+    form = FormularioAplazarCita(request.POST, instance=cita)
+    if form.is_valid():
+        form.save()
+        return redirect("citasHoy")
+    
+    citas = Cita.objects.all()
+    return render(request, "nucleo/citas_hoy.html")

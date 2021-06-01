@@ -21,7 +21,7 @@
                 <ul class="horizontal">
                     {% if request.user.is_authenticated and request.user.is_especialista %}
                     <li>
-                     <a href="{% url 'citasHoy'  %}">Citas Hoy</a>
+                     <a href="{% url 'citasHoy' %}">Citas Hoy</a>
                     </li>                     
                     {% endif %}
                     {% if request.user.is_authenticated %}
@@ -61,32 +61,17 @@
         </div>
     </header>
 
-    <section class="body">
-<h2>Citas de hoy</h2>
-
-{% if citas %}
-
-
-    {% for c in citas %}
-        {% if c.idEspecialista.idUsuario == request.user %} 
-            <article style="display:flex">
-                <div style="margin-left: 3%;">
-                    <h3>Paciente: {{c.idCliente}}</h3>
-                    <p>Fecha: {{c.fecha}}</p>
-                    <p><h4>Informe: </h4>{{c.informe}}</p>                   
-                    
-                    {% if not c.realizada %}
-                    <button style="background-color:blue"><a href="{%url 'aplazar_cita' c.pk %}" style="color:white">Aplazar cita</a></button>
-                    <button><a href="{%url 'rellenar_informe' c.pk %}" style="color:orange">Rellenar informe</a></button>
-                    {% else %}
-                    <button><a href="{%url 'rellenar_informe' c.pk %}" style="color:orange">Modificar informe</a></button>
-                    {% endif %}
-                </div>
-            </article>
-            {% else %}
-            <h3>No tiene citas programadas para hoy</h3>       
-            {% endif %}
-    {% endfor %}
+    
+<section class="body">
+<h2>Elige una nueva fecha para la cita</h2>
+{% if cita.idEspecialista.idUsuario == request.user %} 
+<form action="{% url 'guardar_fecha' cita.pk %}" method="POST">
+    {% csrf_token %} 
+  <table>
+    {{form.as_table}}
+  </table>
+    <input type="submit" value="Actualizar Fecha"/>
+    </form>
+{% else %}
+<h3>No puedes modificar esta cita</h3>
 {% endif %}
-
-</section>
