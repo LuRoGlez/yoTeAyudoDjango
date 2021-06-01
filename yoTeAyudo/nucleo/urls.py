@@ -17,5 +17,6 @@ urlpatterns = [
     path('listMensaje',views.MensajeListView.as_view(), name="listMensaje"),
     path('mensajes/<int:pk>',views.MensajeDetailView.as_view(), name="detailMensaje"),
     path('crearMensaje', views.crear_mensaje, name="crear_mensaje"),
+    path('citasHoy', views.citasHoy, name="citasHoy"),
 
 ]

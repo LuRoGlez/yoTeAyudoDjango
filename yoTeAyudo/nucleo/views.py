@@ -5,6 +5,9 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.core.mail import send_mail
 from nucleo.forms import FormularioMensaje
+from datetime import datetime
+
+now=datetime.now()
 # Create your views here.
 def index(request):
     return render(request, 'nucleo/index.html', {})
@@ -46,6 +49,7 @@ class MensajeListView(ListView):
 class MensajeDetailView(DetailView):
     model=Mensaje
 
+
 def crear_mensaje(request):
     if request.method == "POST":
         form = FormularioMensaje(request.POST)
@@ -58,3 +62,7 @@ def crear_mensaje(request):
 
     form = FormularioMensaje()
     return render(request, "nucleo/crear_mensaje.html", {"form":form})
+
+def citasHoy(request):
+    citas=Cita.objects.filter(fecha=now.date())
+    return render(request, "nucleo/citas_hoy.html", {'citas':citas})
