@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import widgets
 from .models import Mensaje, Cita, Cliente, Especialista
 
 class FormularioMensaje (forms.ModelForm):
@@ -19,6 +20,9 @@ class FormularioAplazarCita (forms.ModelForm):
     class Meta:
         model = Cita
         fields = ('fecha',)
+        widgets = {
+            'fecha': forms.SelectDateWidget()
+        }
 
 class FormularioMensajeCl (forms.ModelForm):
     def __init__(self, *args, **kwargs):
