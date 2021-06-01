@@ -48,6 +48,9 @@ class MensajeListView(ListView):
 
 class MensajeDetailView(DetailView):
     model=Mensaje
+    mensaje = Mensaje.objects
+    mensaje.leido = True
+    
 
 
 def crear_mensaje(request):
