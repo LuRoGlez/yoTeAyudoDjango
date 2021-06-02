@@ -130,7 +130,7 @@ footer > p {
 .mensajes{
     display: flex;
     justify-content: space-between;
-    flex-direction: row;
+    
 }
 .correo{
     width: 40%;
