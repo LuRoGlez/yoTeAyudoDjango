@@ -23,5 +23,6 @@ urlpatterns = [
     path('aplazarCita/<int:pk>', views.aplazar_cita, name="aplazar_cita"),
     path('guardarFecha/<int:pk>', views.guardar_fecha, name="guardar_fecha"),
     path('crearMensajecl', views.crear_mensajeCl, name="crear_mensajecl"),
+    path('mensajesen/<int:pk>',views.MensajeDetailEnviados.as_view(), name="detailMensajeen"),
 
 ]

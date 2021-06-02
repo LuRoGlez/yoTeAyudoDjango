@@ -50,11 +50,15 @@ class MensajeListView(ListView):
 class MensajeDetailView(DetailView):
     model=Mensaje
     
-   
-    #def get_object(self, queryset=None):
-     #   obj = super(MensajeDetailView, self).get_object(queryset=queryset)
-       # obj.leido = True
-      #  obj.save()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        mensaje = self.object
+        mensaje.leido = True
+        mensaje.save()
+        
+        return context
+
     
 
 def crear_mensaje(request):
@@ -119,3 +123,7 @@ def crear_mensajeCl(request):
 
     form = FormularioMensajeCl()
     return render(request, "nucleo/crear_mensajecl.html", {"form":form})
+
+class MensajeDetailEnviados(DetailView):
+    model=Mensaje
+    template_name='nucleo/mensaje_detail.html'

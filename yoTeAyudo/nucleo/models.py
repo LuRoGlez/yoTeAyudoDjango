@@ -18,7 +18,7 @@ class Cliente (models.Model):
     direccion=models.CharField(max_length=100)
     fechaNacimiento=models.DateField(null=True)
     foto=models.ImageField(upload_to='photos/', verbose_name="Foto")
-    idUsuario=models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    idUsuario=models.OneToOneField(User, on_delete=models.CASCADE, unique=True, related_name="cliente")
 
     REQUIRED_FIELDS = []
 
@@ -35,7 +35,7 @@ class Especialista (models.Model):
     fechaNacimiento=models.DateField(null=True)
     foto=models.ImageField(upload_to='photos/', verbose_name="Foto")
     biografia=models.TextField(max_length=255)
-    idUsuario=models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    idUsuario=models.OneToOneField(User, on_delete=models.CASCADE, unique=True, related_name="espelicalista")
 
     REQUIRED_FIELDS = []
 

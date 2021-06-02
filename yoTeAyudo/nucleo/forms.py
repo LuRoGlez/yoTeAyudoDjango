@@ -1,11 +1,11 @@
 from django import forms
 from django.forms import widgets
-from .models import Mensaje, Cita, Cliente, Especialista
+from .models import Mensaje, Cita, Cliente, Especialista, User
 
 class FormularioMensaje (forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FormularioMensaje, self).__init__(*args, **kwargs)
-        self.fields['idReceptor'].queryset = Cliente.objects.all()
+        self.fields['idReceptor'].queryset = User.objects.filter(is_cliente = True)
 
     class Meta:
         model = Mensaje
@@ -27,7 +27,7 @@ class FormularioAplazarCita (forms.ModelForm):
 class FormularioMensajeCl (forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FormularioMensajeCl, self).__init__(*args, **kwargs)
-        self.fields['idReceptor'].queryset = Especialista.objects.all()
+        self.fields['idReceptor'].queryset = User.objects.filter(is_especialista = True)
 
     class Meta:
         model = Mensaje
