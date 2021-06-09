@@ -15,7 +15,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework import status
-from django.contrib.auth.models import User
+from .models import User
 
 now=datetime.now()
 # Create your views here.
@@ -140,7 +140,7 @@ class MensajeDetailEnviados(DetailView):
 
 class Citas_APIView(APIView):
     permission_classes = [IsAuthenticated]
-    
+
     def get(self, request, format=None, *args, **kwargs):
         cit = Cita.objects.all()
         serializer = CitaSerializers(cit, many=True)
