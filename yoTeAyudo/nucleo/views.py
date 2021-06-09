@@ -1,3 +1,6 @@
+from django.http.response import Http404
+from rest_framework.exceptions import ParseError
+from .serializers import CitaSerializers
 from django.http import request
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import Cliente, Especialista, Cita, Mensaje
@@ -5,8 +8,14 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.core.mail import send_mail
-from nucleo.forms import FormularioAplazarCita, FormularioMensaje, FormularioInforme, FormularioAplazarCita, FormularioMensajeCl
+from .forms import FormularioAplazarCita, FormularioMensaje, FormularioInforme, FormularioAplazarCita, FormularioMensajeCl
 from datetime import datetime
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
+from rest_framework import status
+from django.contrib.auth.models import User
 
 now=datetime.now()
 # Create your views here.
@@ -127,3 +136,55 @@ def crear_mensajeCl(request):
 class MensajeDetailEnviados(DetailView):
     model=Mensaje
     template_name='nucleo/mensaje_detail.html'
+
+
+class Citas_APIView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, format=None, *args, **kwargs):
+        cit = Cita.objects.all()
+        serializer = CitaSerializers(cit, many=True)
+        return Response(serializer.data)
+
+class Cita_APIView_Detail(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self, pk):
+        try:
+            return Cita.objects.get(pk=pk)
+        except Cita.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        cit = self.get_object(pk)
+        serializer = CitaSerializers(cit)
+        return Response(serializer.data)
+
+
+class TestView(APIView):
+    def get(self, request, format=None):
+        return Response ({'detail': "GET Response"})
+
+    def post(self, request, format=None):
+        try:
+            data = request.data
+        except ParseError as error:
+            return Response(
+                'Invalid JSON - {0}'.format(error.detail),
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if "user" not in data or "password" not in data:
+            return Response(
+                'Wrong credentials',
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        
+        user = User.objects.get(username=data["user"])
+        if not user:
+            return Response(
+                'no default user, plase create one',
+                status=status.status.HTTP_404_NOT_FOUND
+            )
+
+        token = Token.objects.get_or_create(user=user)
+        return Response({'detail':'POST answer', 'token': token[0].key})
