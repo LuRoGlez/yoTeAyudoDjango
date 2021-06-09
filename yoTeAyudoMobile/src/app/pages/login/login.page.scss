@@ -1,0 +1,48 @@
+.ppal{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-transform: capitalize;
+    font-family: 'Montserrat', sans-serif;
+}
+
+input[type="text"] {
+    margin: 5px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 80%;
+    color:rgb(0, 0, 0, 0.65)
+  }
+
+  input[type="user"] {
+    margin: 5px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 80%;
+    color:rgb(0, 0, 0, 0.65)
+  }
+
+  input[type="password"] {
+    margin: 5px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    width: 80%;
+    color:rgb(0, 0, 0, 0.65)
+  }
+
+h1{
+     margin-top: 20%;
+     margin-bottom: 25%;
+
+}
+
+    .title{
+       display:flex;
+       flex-direction: row;
+   }
+ 
