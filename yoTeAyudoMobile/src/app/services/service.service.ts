@@ -37,9 +37,9 @@ export class ServiceService {
 
   getCitas(){
           return new Promise((resolve) => {
-        this.http.get(this.apiUrl +"/citas" /**,{
-          headers: new HttpHeaders().set('Authorization','Bearer ' + this.token),
-        }*/).subscribe(
+        this.http.get(this.apiUrl +"/citas/" ,{
+          headers: new HttpHeaders().set('Authorization','token ' + this.token),
+        }).subscribe(
           (data) => {
             resolve(data);
           },
@@ -53,5 +53,10 @@ export class ServiceService {
   
   setToken(valor: any){
     this.token= valor;
+  }
+
+  getToken(){
+    console.log(this.token);
+    return this.token;
   }
 }
