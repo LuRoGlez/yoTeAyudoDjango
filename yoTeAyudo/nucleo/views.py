@@ -142,9 +142,13 @@ class Citas_APIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, format=None, *args, **kwargs):
-        cit = Cita.objects.filter(idCliente = request.user.is_cliente).filter(fecha__lt=now.date())
+        cliente = request.user.is_cliente
+        cit = Cita.objects.filter(idCliente = cliente).filter(fecha__lt=now.date())
         serializer = CitaSerializers(cit, many=True)
+        
         return Response(serializer.data)
+
+        print(cliente)
 
 class Cita_APIView_Detail(APIView):
     permission_classes = [IsAuthenticated]

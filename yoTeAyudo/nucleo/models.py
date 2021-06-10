@@ -46,7 +46,7 @@ class Especialista (models.Model):
 
 class Cita(models.Model):
     fecha=models.DateField(null=True)
-    idCliente=models.ForeignKey(Cliente, verbose_name="Cliente", on_delete=models.CASCADE, related_name='Cliente')
+    idCliente=models.ForeignKey(Cliente, verbose_name="Cliente", on_delete=models.CASCADE, related_name='cliente')
     idEspecialista=models.ForeignKey(Especialista, verbose_name="Especialista", on_delete=models.CASCADE, related_name='Especialista')
     informe=models.TextField(max_length=255, null=True)
     realizada=models.BooleanField(default=False)
