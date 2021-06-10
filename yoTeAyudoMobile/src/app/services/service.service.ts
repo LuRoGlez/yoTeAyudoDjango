@@ -9,6 +9,8 @@ const headers = new HttpHeaders;
 export class ServiceService {
   apiUrl = 'http://127.0.0.1:8000/nucleo/api';
   token : any;
+  user : any;
+  password : any;
 
 
   constructor(private http: HttpClient) { }
@@ -31,6 +33,22 @@ export class ServiceService {
           }
         );
     });
+  }
+
+  getCitas(){
+          return new Promise((resolve) => {
+        this.http.get(this.apiUrl +"/citas" /**,{
+          headers: new HttpHeaders().set('Authorization','Bearer ' + this.token),
+        }*/).subscribe(
+          (data) => {
+            resolve(data);
+          },
+          (err) => {
+            console.log(err)
+          }
+        );
+      });
+    
   }
   
   setToken(valor: any){

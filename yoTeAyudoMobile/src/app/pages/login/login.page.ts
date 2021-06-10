@@ -20,10 +20,10 @@ export class LoginPage implements OnInit {
 
   login(){
     this.restService.login(this.user, this.password).then(data=>{
-      console.log(data);
       this.token = data;
-      this.restService.setToken(this.token.data.token);
-      if(this.token.success){
+      this.restService.setToken(this.token.token);
+
+      if(this.restService.token){
         console.log('Login correcto');
        
           this.router.navigateByUrl('/informes');
