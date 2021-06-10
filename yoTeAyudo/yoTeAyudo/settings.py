@@ -147,7 +147,7 @@ CORS_ORIGIN_WHITELIST = (
 #Authentication
 
 REST_FRAMEWORK = {
-    'DEFAULT_ATHENTICATION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
