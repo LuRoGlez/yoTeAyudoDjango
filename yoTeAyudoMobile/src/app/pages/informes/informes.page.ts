@@ -17,7 +17,7 @@ export class InformesPage implements OnInit {
   }
 
   mostrarCitas(){
-    this.restService.getCitas();
+    this.getCitas();
     this.mostrar=true;
     
   }
