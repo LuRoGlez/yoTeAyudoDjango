@@ -14,14 +14,14 @@ export class InformesPage implements OnInit {
   constructor(public restService: ServiceService, public router: Router) { }
   citas:any;
   fecha = new Date();
-  hoy = this.fecha.getDate();
+
 
 
   ngOnInit() {
   }
 
   mostrarCitas(){
-    console.log(this.hoy);
+   
     this.getCitas();
     this.mostrar=true;
     
@@ -35,7 +35,7 @@ export class InformesPage implements OnInit {
          console.log(this.citas);
        }
        console.log(res);
-       //console.log(this.citas);
+      
     },
     
       (error)=>{
