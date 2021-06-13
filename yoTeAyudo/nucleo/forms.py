@@ -2,6 +2,7 @@ from django import forms
 from django.forms import widgets
 from .models import Mensaje, Cita, Cliente, Especialista, User
 
+
 class FormularioMensaje (forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FormularioMensaje, self).__init__(*args, **kwargs)
@@ -32,3 +33,7 @@ class FormularioMensajeCl (forms.ModelForm):
     class Meta:
         model = Mensaje
         fields = ('idReceptor', 'asunto', 'texto')
+
+class setFechas(forms.Form):
+    fechaAnterior=forms.DateField(label='fecha anterior', required=True,widget=forms.DateInput(attrs={'placeholder':'AAAA-MM-DD'}))
+    fechaPosterior=forms.DateField(label='fecha posterior', required=True,widget=forms.DateInput(attrs={'placeholder':'AAAA-MM-DD'}))

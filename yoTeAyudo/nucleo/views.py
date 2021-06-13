@@ -8,7 +8,7 @@ from django.views.generic.list import ListView
 from django.views import View
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from .forms import FormularioAplazarCita, FormularioMensaje, FormularioInforme, FormularioAplazarCita, FormularioMensajeCl
+from .forms import FormularioAplazarCita, FormularioMensaje, FormularioInforme, FormularioAplazarCita, FormularioMensajeCl, setFechas
 from datetime import datetime
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
@@ -212,9 +212,10 @@ def citasPDF(request):
     c=canvas.Canvas(buffer, pagesize=A4)
 
     #cabecera
+    nombre = request.user.cliente.nombre
     c.setLineWidth(.3)
     c.setFont('Helvetica', 22)
-    c.drawString(30,750,'Informe de Citas')
+    c.drawString(30,750,'Informe de Citas de '+nombre)
     c.setFont('Helvetica', 16)
     c.drawString(30, 735, 'YoTeAyudo')
 
@@ -249,5 +250,15 @@ def citasPDF(request):
 
     
 def informePDF(request):
+    form = setFechas(request.POST)
+    if request.method=="POST":
+        FORM=setFechas(data=request.POST)
+        if form.is_valid():
+            feA=request.POST.get('fechaAnterior')
+            feP=request.POST.get('fechaPosterior')
+
+            return (feA, feP)
+        
     
     return render(request, "nucleo/informePDF.html")
+

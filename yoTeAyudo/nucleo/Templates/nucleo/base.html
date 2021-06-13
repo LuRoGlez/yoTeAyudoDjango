@@ -22,7 +22,7 @@
             <ul class="horizontal">
                 {% if request.user.is_authenticated and request.user.is_cliente %}
                 <li>
-                 <a href="{% url 'informePDF' %}">Citas Hoy</a>
+                 <a href="{% url 'informePDF' %}">Informe PDF</a>
                 </li>                     
                 {% endif %}
                 {% if request.user.is_authenticated and request.user.is_especialista %}
