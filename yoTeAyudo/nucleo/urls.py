@@ -27,6 +27,7 @@ urlpatterns = [
     path('api/citas/', Citas_APIView.as_view()),
     path('api/cita/<int:pk>/', Cita_APIView_Detail.as_view()),
     path('api/token/', TestView.as_view()),
-    path('informe_pdf/', citasPDF.as_view(), name="citasPDF"),
+    path('citas_pdf/', views.citasPDF, name="citasPDF"),
+    path('informePDF', views.informePDF, name="informePDF"),
 
 ]

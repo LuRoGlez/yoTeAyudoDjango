@@ -20,6 +20,11 @@
         
         <nav>
             <ul class="horizontal">
+                {% if request.user.is_authenticated and request.user.is_cliente %}
+                <li>
+                 <a href="{% url 'informePDF' %}">Citas Hoy</a>
+                </li>                     
+                {% endif %}
                 {% if request.user.is_authenticated and request.user.is_especialista %}
                 <li>
                  <a href="{% url 'citasHoy' %}">Citas Hoy</a>

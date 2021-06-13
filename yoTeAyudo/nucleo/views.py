@@ -21,7 +21,10 @@ from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from reportlab.platypus import Table, TableStyle
 from reportlab.lib.units import cm
+from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
+from reportlab.platypus.paragraph import Paragraph
+ 
 
 
 now=datetime.now()
@@ -200,41 +203,51 @@ class TestView(APIView):
         token = Token.objects.get_or_create(user=user)
         return Response({'detail':'POST answer', 'token': token[0].key})
 
-class citasPDF(View):  
-     
-    def cabecera(self,pdf):
-        pdf.setFont("Helvetica", 16)
-        pdf.drawString(230, 790, u"YO TE AYUDO")
-        pdf.setFont("Helvetica", 14)
-        pdf.drawString(200, 770, u"REPORTE DE CLIENTE")          
-            
 
-    def tablaCitas(self,pdf,y):
+def citasPDF(request):    
 
-        encabezados = ('Fecha', 'Especialista', ' ', 'informe')
-        detalles = [(cit.fecha, cit.idEspecialista.nombre, cit.idEspecialista.apellidos, cit.informe) for cit in Cita.objects.all()]#no puedo obtener el usuario al no tener request
-        detalle_orden = Table([encabezados] + detalles, colWidths=[2 * cm, 3 * cm, 3 * cm, 7 * cm])
-        detalle_orden.setStyle(TableStyle(
-                [
-                ('ALIGN',(0,0),(3,0),'CENTER'),
-                ('GRID', (0, 0), (-1, -1), 1, colors.black), 
-                ('FONTSIZE', (0, 0), (-1, -1), 10),
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename=InformeCitas.pdf'
+    buffer = BytesIO()
+    c=canvas.Canvas(buffer, pagesize=A4)
+
+    #cabecera
+    c.setLineWidth(.3)
+    c.setFont('Helvetica', 22)
+    c.drawString(30,750,'Informe de Citas')
+    c.setFont('Helvetica', 16)
+    c.drawString(30, 735, 'YoTeAyudo')
+
+    #Tabla
+    encabezados = ('Fecha', 'Especialista', 'Apellido', 'Informe')
+    detalles = []
+    for cit in Cita.objects.filter(idCliente=request.user.cliente):
+        p=Paragraph(cit.informe)
+
+        detalles.append((cit.fecha, cit.idEspecialista.nombre, cit.idEspecialista.apellidos, p))
+
+    detalle_orden = Table([encabezados] + detalles, colWidths=[2 * cm, 3 * cm, 3 * cm, 10 * cm])
+    detalle_orden.setStyle(TableStyle(
+        [
+            ('ALIGN',(0,0),(3,0),'CENTER'),
+            ('GRID', (0, 0), (-1, -1), 1, colors.black), 
+            ('FONTSIZE', (0, 0), (-1, -1), 10),
             ]
         )) 
-        detalle_orden.wrapOn(pdf, 800, 600)
-        detalle_orden.drawOn(pdf, 10, 0)
-        
-    def get(self, request, *args, **kwargs):
-        response = HttpResponse(content_type='application/pdf')
-        buffer = BytesIO()
-        pdf = canvas.Canvas(buffer)
-        self.cabecera(pdf)
-        y = 600
-        self.tablaCitas(pdf, y)
-        pdf.showPage()
-        pdf.save()
-        pdf = buffer.getvalue()
-        buffer.close()
-        response.write(pdf)
-            
-        return response
+    detalle_orden.wrapOn(c, 800, 600)
+    detalle_orden.drawOn(c, 30, 450)
+
+
+    c.showPage()
+    c.save()
+    
+    pdf = buffer.getvalue()
+    buffer.close()
+    response.write(pdf)
+    return response
+
+
+    
+def informePDF(request):
+    
+    return render(request, "nucleo/informePDF.html")
