@@ -220,9 +220,10 @@ def citasPDF(request):
 
     #cabecera
     nombre = request.user.cliente.nombre
+    ape = request.user.cliente.apellidos
     c.setLineWidth(.3)
     c.setFont('Helvetica', 22)
-    c.drawString(30,750,'Informe de Citas de '+nombre)
+    c.drawString(30,750,'Informe de Citas de '+nombre+' '+ape)
     c.setFont('Helvetica', 16)
     c.drawString(30, 735, 'YoTeAyudo')
     
