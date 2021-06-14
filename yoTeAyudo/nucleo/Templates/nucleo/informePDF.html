@@ -4,13 +4,15 @@
 {% block content %}
 
 <section class="body">
+  
+{% if request.user.is_authenticated and request.user.is_cliente %}
 <h2>Genera un informe PDF de tus citas</h2>
 
 
-{% if request.user.is_authenticated and request.user.is_cliente %}
     <section style="padding:20px; text-align:center">
         <form action=" " method="POST">
             {% csrf_token %} 
+            {% if not 'ok' in request.GET %}
           <Label>
             Fecha anterior
           </Label>
@@ -18,6 +20,7 @@
           <label>Fecha posterior</label>
           <input type="date" id="fechaPosterior" name="fechaPosterior" required><br>
             <input type="submit" value="Confirmar Fechas" style="background-color: darkblue;color:white"/>
+            {% endif %}
           {% if 'ok' in request.GET %}
           <p>Fechas introducidas correctamente</p>
           <section style="padding:20px; text-align:center">
@@ -26,6 +29,8 @@
          </section>
          {% endif %}
             </form>
+{% else %}
+<h2>Necesitas ser un cliente Logeado para crear un PDF con tus citas</h2>
 {% endif %}
 
 
