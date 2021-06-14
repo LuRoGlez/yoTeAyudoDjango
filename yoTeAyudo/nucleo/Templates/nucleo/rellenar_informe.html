@@ -1,0 +1,21 @@
+{% extends "nucleo/base.html" %} 
+
+    
+{% block content %}
+
+    
+<section class="body">
+<h2>Rellenar Informe</h2>
+{% if cita.idEspecialista.idUsuario == request.user %} 
+<form action="{% url 'guardar_informe' cita.pk %}" method="POST">
+    {% csrf_token %} 
+  <table>
+    {{form.as_table}}
+  </table>
+    <input type="submit" value="Enviar Informe"/>
+    </form>
+{% else %}
+<h3>No puedes modificar esta cita</h3>
+{% endif %}
+</section>
+{% endblock %}

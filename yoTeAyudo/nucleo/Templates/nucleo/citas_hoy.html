@@ -1,0 +1,36 @@
+{% extends "nucleo/base.html" %} 
+
+    
+{% block content %}
+
+    <section class="body">
+<h2>Citas de hoy</h2>
+
+{% if citas %}
+
+
+    {% for c in citas %}
+        {% if c.idEspecialista.idUsuario == request.user %} 
+            <article style="display:flex">
+                <div style="margin-left: 3%;">
+                    <h3>Paciente: {{c.idCliente}}</h3>
+                    <p>Fecha: {{c.fecha}}</p>
+                    <p><h4>Informe: </h4>{{c.informe}}</p>                   
+                    
+                    {% if not c.realizada %}
+                    <button style="background-color:blue"><a href="{%url 'aplazar_cita' c.pk %}" style="color:white">Aplazar cita</a></button>
+                    <button><a href="{%url 'rellenar_informe' c.pk %}" style="color:orange">Rellenar informe</a></button>
+                    {% else %}
+                    <button><a href="{%url 'rellenar_informe' c.pk %}" style="color:orange">Modificar informe</a></button>
+                    {% endif %}
+                </div>
+            </article>
+            {% else %}
+            <h3>No tiene citas programadas para hoy</h3>       
+            {% endif %}
+    {% endfor %}
+{% endif %}
+
+</section>
+
+{% endblock %}

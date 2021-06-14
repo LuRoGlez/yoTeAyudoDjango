@@ -1,0 +1,17 @@
+{% extends "nucleo/base.html" %} 
+
+    
+{% block content %}
+{% if citas %}
+<h2>Citas del cliente {{ cliente }}</h2>
+<ul>
+{% for c in citas %}
+    <li>
+        <p>Especialista: {{ c.idEspecialista.nombre }} Fecha: {{ c.fecha }} </p><br/>
+        <p>Informe: {{ c.informe }}</p>
+    </li>
+{% endfor %} 
+</ul>
+{% endif %}
+
+{% endblock %}

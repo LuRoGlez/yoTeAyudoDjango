@@ -1,0 +1,21 @@
+{% extends "nucleo/base.html" %} 
+
+    
+{% block content %}
+    <body>
+     <article style="display:flex; justify-content: space-around">
+       <div>
+           <img src="{{object.foto.url}}" style="border-radius: 50%; width: 200px; height: 200px;">
+       </div>
+       <div style="margin-left: 3%;">
+           <h3>{{object.apellidos}}, {{object.nombre}}</h3>
+
+           
+       </div>
+       <div>
+            <h2>biografía</h2>
+            <p>{{object.biografia}}</p>
+            <p>{{object.direccion}}</p>
+       </div>
+    </article> 
+    {% endblock %} 

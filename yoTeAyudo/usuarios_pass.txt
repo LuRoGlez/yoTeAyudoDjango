@@ -1,0 +1,12 @@
+SuerUser:
+usuario      pass: usuario1234
+
+
+Clientes:
+LuRosell     pass: lr123456
+JuLopez      pass: jl123456
+
+Especialistas:
+GeGarcia     pass: gg123456
+MiJimenez    pass: mj123456
+

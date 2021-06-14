@@ -1,0 +1,18 @@
+{% extends "nucleo/base.html" %} 
+
+    
+{% block content %}
+
+    
+<section class="body">
+<h2>Envia un mensaje</h2>
+
+<form action="" method="POST">
+    {% csrf_token %} 
+  <table>
+    {{form.as_table}}
+  </table>
+    <input type="submit" value="Enviar Mensaje"/>
+    </form>
+</section>
+{% endblock %}

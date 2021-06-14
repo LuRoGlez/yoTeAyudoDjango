@@ -1,0 +1,24 @@
+{% extends "nucleo/base.html" %} 
+
+    
+{% block content %}
+
+     <article style="margin:15px">
+        {% if object.idEmisor == request.user or object.idReceptor == request.user %}
+       <div style="margin-left: 3%;">
+           <h3>De: {{object.idEmisor}}</h3>
+           <h3>Para: {{object.idReceptor}}</h3>
+
+           
+       </div>
+       <div style="margin-left: 3%;">
+            <h3>Asunto: {{object.asunto}}</h3>
+            <p>{{object.texto}}</p>
+       </div>
+       {% else %} 
+       <p>No puedes leer este mensaje por no ser el emisor ni el receptor</p>
+       {% endif %} 
+    </article> 
+    <button style="background-color: orange; margin-bottom : 50px;"><a href="{%url 'listMensaje' %}" style="color:white">Volver a mensajes</a></button>
+    
+    {% endblock %}

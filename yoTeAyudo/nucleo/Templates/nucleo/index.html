@@ -1,43 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yo Te Ayudo</title>
-    {% load static %}
+{% extends "nucleo/base.html" %} 
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/ppal.css' %}">
-</head>
-<body>
-    <header>
-        <div class="nombre">
-            <a href="{% url 'index'  %}" class="noback"><h1>Yo Te Ayudo</h1></a>
-            <p>Asesoramiento sobre salud</p>
-        </div>
-        <div class="headerrigth">
-            
-            <nav>
-                <ul class="horizontal">
-                    <li>
-                        <a href="{% url 'listEspecialista'  %}">Nuestros especialistas</a>
-                    </li>
-                    <li>
-                        {% if not request.user.is_authenticated %}
-                        <a href="{% url 'login'  %}">Iniciar Sesión</a>
-                        {% else %}
-                        <a href="{% url 'logout'  %}"><ul>
-                            <li>Cerrar Sesión</li> 
-                            <li style="font-size: 12px">Usuario: {{request.user.username}}</li>
-                            </ul></a>
-                        {% endif %}
-                    </li>
-
-                </ul>
-            </nav>
-        </div>
-    </header>
-
+    
+{% block content %}
     <section class="img">
         <div class="unete">
             <span>Yo te ayudo nace con el fin de ayudar a resolver dudas médicas</span>
@@ -45,6 +9,7 @@
             <span>en la pandemia del COVID-19</span>
         </div>
     </section>
+     
     <section class="instalaciones">
         
         <div class="nuestras">
@@ -57,10 +22,4 @@
     <section style="text-align: center;">
         <a href="" style="color:rgba(0, 0, 0, 0.65)"><h2>Contacta con nosotros</h2></a>
     </section>
-    <footer>
-        
-        <p>Página web creada por Luis Rosell con el framework django para la asignatura PSP de segundo de Dam</p>
-        
-    </footer>
-</body>
-</html>
+  {% endblock %} 

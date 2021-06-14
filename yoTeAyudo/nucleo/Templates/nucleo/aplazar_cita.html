@@ -1,0 +1,21 @@
+{% extends "nucleo/base.html" %} 
+
+    
+{% block content %}
+
+    
+<section class="body">
+<h2>Elige una nueva fecha para la cita</h2>
+{% if cita.idEspecialista.idUsuario == request.user %} 
+<form action="{% url 'guardar_fecha' cita.pk %}" method="POST">
+    {% csrf_token %} 
+  <table>
+    {{form.as_table}}
+  </table>
+    <input type="submit" value="Actualizar Fecha"/>
+    </form>
+{% else %}
+<h3>No puedes modificar esta cita</h3>
+{% endif %}
+</section>
+{% endblock %}
