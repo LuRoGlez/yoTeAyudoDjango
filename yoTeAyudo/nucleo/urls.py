@@ -29,5 +29,6 @@ urlpatterns = [
     path('api/token/', TestView.as_view()),
     path('citas_pdf/', views.citasPDF, name="citasPDF"),
     path('informePDF', views.informePDF, name="informePDF"),
+    path('confirmarPDF', views.confirmarPDF, name="confirmarPDF"),
 
 ]

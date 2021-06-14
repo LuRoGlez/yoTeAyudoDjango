@@ -26,6 +26,9 @@ from reportlab.lib import colors
 from reportlab.platypus.paragraph import Paragraph
  
 
+feA=datetime.now()
+feP=datetime.now()
+
 
 now=datetime.now()
 # Create your views here.
@@ -205,11 +208,14 @@ class TestView(APIView):
 
 
 def citasPDF(request):    
-
+  
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=InformeCitas.pdf'
     buffer = BytesIO()
     c=canvas.Canvas(buffer, pagesize=A4)
+
+    print(feP)
+    print(feA)
 
     #cabecera
     nombre = request.user.cliente.nombre
@@ -218,6 +224,9 @@ def citasPDF(request):
     c.drawString(30,750,'Informe de Citas de '+nombre)
     c.setFont('Helvetica', 16)
     c.drawString(30, 735, 'YoTeAyudo')
+    
+
+
 
     #Tabla
     encabezados = ('Fecha', 'Especialista', 'Apellido', 'Informe')
@@ -250,15 +259,26 @@ def citasPDF(request):
 
     
 def informePDF(request):
-    form = setFechas(request.POST)
-    if request.method=="POST":
-        FORM=setFechas(data=request.POST)
-        if form.is_valid():
-            feA=request.POST.get('fechaAnterior')
-            feP=request.POST.get('fechaPosterior')
+    set_fechas = setFechas()
 
-            return (feA, feP)
+    if request.method=="POST":
+        set_fechas=setFechas(data=request.POST)
+        if set_fechas.is_valid():
+            fechaAnterior=request.POST.get('fechaAnterior','')
+            fechaPosterior=request.POST.get('fechaPosterior','')
+
+            global feA
+            global feP
+
+            feA=fechaAnterior
+            feP=fechaPosterior
+
+    return render(request, "nucleo/informePDF.html", {'form':set_fechas})
+    
+        
+
+def confirmarPDF(request):
+   
         
     
-    return render(request, "nucleo/informePDF.html")
-
+    return render(request, "nucleo/confirmarPDF.html")

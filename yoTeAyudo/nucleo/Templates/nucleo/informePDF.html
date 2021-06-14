@@ -9,15 +9,16 @@
 
 {% if request.user.is_authenticated and request.user.is_cliente %}
     <section style="padding:20px; text-align:center">
-        <form action="{% url 'citasPDF' %}" method="POST">
+        <form action="{% url 'confirmarPDF' %}" method="POST">
             {% csrf_token %} 
-          <table>
-            {{form.as_table}}
-          </table>
-            <input type="submit" value="Enviar Informe"/>
+          <Label>
+            Fecha anterior
+          </Label>
+          <input type="date" id="fechaAnterior" name="fechaAnterior" required>
+          <label>Fecha posterior</label>
+          <input type="date" id="fechaPosterior" name="fechaPosterior" required><br>
+            <input type="submit" value="Confirmar Fechas" style="background-color: darkblue;color:white"/>
             </form>
-         <button style="background-color:green; border-radius: 50%; padding:50px; font-size:30px" ><a href="{% url 'citasPDF' %}" style="color:white">Generar informe con mis citas!</a></button>
-    </section>
 {% endif %}
 
 

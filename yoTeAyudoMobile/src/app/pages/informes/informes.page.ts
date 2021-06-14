@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from '../../services/service.service';
 import { Router } from '@angular/router';
-import { getAttrsForDirectiveMatching } from '@angular/compiler/src/render3/view/util';
+
 
 @Component({
   selector: 'app-informes',
@@ -42,6 +42,10 @@ export class InformesPage implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  irLogin(){
+    this.router.navigateByUrl('/login');
   }
 
 

@@ -1,0 +1,20 @@
+{% extends "nucleo/base.html" %} 
+
+    
+{% block content %}
+
+<section class="body">
+<h2>¿Seguro que quieres crear un PDF?</h2>
+
+
+{% if request.user.is_authenticated and request.user.is_cliente %}
+    <section style="padding:20px; text-align:center">
+        
+       <button style="background-color:green; padding:15px; font-size:30px" ><a href="{% url 'citasPDF' %}" style="color:white">Confirmar informe con mis citas!</a></button>
+    </section>
+{% endif %}
+
+
+</section>
+
+{% endblock %}
