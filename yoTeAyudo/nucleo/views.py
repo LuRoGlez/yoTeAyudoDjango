@@ -24,6 +24,7 @@ from reportlab.lib.units import cm
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors
 from reportlab.platypus.paragraph import Paragraph
+from django.urls import reverse
  
 
 feA=datetime.now()
@@ -231,7 +232,7 @@ def citasPDF(request):
     #Tabla
     encabezados = ('Fecha', 'Especialista', 'Apellido', 'Informe')
     detalles = []
-    for cit in Cita.objects.filter(idCliente=request.user.cliente):
+    for cit in Cita.objects.filter(idCliente=request.user.cliente).filter(fecha__range=[feA, feP]):
         p=Paragraph(cit.informe)
 
         detalles.append((cit.fecha, cit.idEspecialista.nombre, cit.idEspecialista.apellidos, p))
@@ -266,13 +267,17 @@ def informePDF(request):
         if set_fechas.is_valid():
             fechaAnterior=request.POST.get('fechaAnterior','')
             fechaPosterior=request.POST.get('fechaPosterior','')
-
+            print('aaa'+fechaAnterior)
             global feA
             global feP
+            feA = fechaAnterior
+            feP = fechaPosterior
+            print('eeeee'+feA)
 
-            feA=fechaAnterior
-            feP=fechaPosterior
 
+            return redirect(reverse('informePDF')+"?ok")
+
+            
     return render(request, "nucleo/informePDF.html", {'form':set_fechas})
     
         

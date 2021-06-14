@@ -35,5 +35,5 @@ class FormularioMensajeCl (forms.ModelForm):
         fields = ('idReceptor', 'asunto', 'texto')
 
 class setFechas(forms.Form):
-    fechaAnterior=forms.DateField(label='fecha anterior', required=True,widget=forms.DateInput(attrs={'placeholder':'AAAA-MM-DD'}))
-    fechaPosterior=forms.DateField(label='fecha posterior', required=True,widget=forms.DateInput(attrs={'placeholder':'AAAA-MM-DD'}))
+    fechaAnterior=forms.DateField(label='fechaAnterior', required=True,widget=forms.DateInput(attrs={'placeholder':'AAAA-MM-DD'}))
+    fechaPosterior=forms.DateField(label='fechaPosterior', required=True,widget=forms.DateInput(attrs={'placeholder':'AAAA-MM-DD'}))
