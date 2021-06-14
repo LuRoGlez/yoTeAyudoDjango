@@ -1,0 +1,6 @@
+http://lroglez.pythonanywhere.com/
+
+
+Te dejo aqui tambien la dirección del git de la app movil
+
+https://github.com/LuRoGlez/yoTeAyudoMobile.git
