@@ -209,55 +209,59 @@ class TestView(APIView):
 
 
 def citasPDF(request):    
-  
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=InformeCitas.pdf'
-    buffer = BytesIO()
-    c=canvas.Canvas(buffer, pagesize=A4)
+    if request.user.is_authenticated:
+        if request.user.is_cliente:
+            response = HttpResponse(content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename=InformeCitas.pdf'
+            buffer = BytesIO()
+            c=canvas.Canvas(buffer, pagesize=A4)
 
-    print(feP)
-    print(feA)
+            print(feP)
+            print(feA)
 
-    #cabecera
-    nombre = request.user.cliente.nombre
-    ape = request.user.cliente.apellidos
-    c.setLineWidth(.3)
-    c.setFont('Helvetica', 22)
-    c.drawString(30,750,'Informe de Citas de '+nombre+' '+ape)
-    c.setFont('Helvetica', 16)
-    c.drawString(30, 735, 'YoTeAyudo')
-    
-
-
-
-    #Tabla
-    encabezados = ('Fecha', 'Especialista', 'Apellido', 'Informe')
-    detalles = []
-    for cit in Cita.objects.filter(idCliente=request.user.cliente).filter(fecha__range=[feA, feP]):
-        p=Paragraph(cit.informe)
-
-        detalles.append((cit.fecha, cit.idEspecialista.nombre, cit.idEspecialista.apellidos, p))
-
-    detalle_orden = Table([encabezados] + detalles, colWidths=[2 * cm, 3 * cm, 3 * cm, 10 * cm])
-    detalle_orden.setStyle(TableStyle(
-        [
-            ('ALIGN',(0,0),(3,0),'CENTER'),
-            ('GRID', (0, 0), (-1, -1), 1, colors.black), 
-            ('FONTSIZE', (0, 0), (-1, -1), 10),
-            ]
-        )) 
-    detalle_orden.wrapOn(c, 800, 600)
-    detalle_orden.drawOn(c, 30, 450)
+            #cabecera
+            nombre = request.user.cliente.nombre
+            ape = request.user.cliente.apellidos
+            c.setLineWidth(.3)
+            c.setFont('Helvetica', 22)
+            c.drawString(30,750,'Informe de Citas de '+nombre+' '+ape)
+            c.setFont('Helvetica', 16)
+            c.drawString(30, 735, 'YoTeAyudo')
+            
 
 
-    c.showPage()
-    c.save()
-    
-    pdf = buffer.getvalue()
-    buffer.close()
-    response.write(pdf)
-    return response
 
+            #Tabla
+            encabezados = ('Fecha', 'Especialista', 'Apellido', 'Informe')
+            detalles = []
+            for cit in Cita.objects.filter(idCliente=request.user.cliente).filter(fecha__range=[feA, feP]):
+                p=Paragraph(cit.informe)
+
+                detalles.append((cit.fecha, cit.idEspecialista.nombre, cit.idEspecialista.apellidos, p))
+
+            detalle_orden = Table([encabezados] + detalles, colWidths=[2 * cm, 3 * cm, 3 * cm, 10 * cm])
+            detalle_orden.setStyle(TableStyle(
+                [
+                    ('ALIGN',(0,0),(3,0),'CENTER'),
+                    ('GRID', (0, 0), (-1, -1), 1, colors.black), 
+                    ('FONTSIZE', (0, 0), (-1, -1), 10),
+                    ]
+                )) 
+            detalle_orden.wrapOn(c, 800, 600)
+            detalle_orden.drawOn(c, 30, 450)
+
+
+            c.showPage()
+            c.save()
+            
+            pdf = buffer.getvalue()
+            buffer.close()
+            response.write(pdf)
+            return response
+        else:
+            return redirect('../../')    
+    else:
+        return redirect('../../accounts/login/')
 
     
 def informePDF(request):
